@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Products — SAAJ</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="admin-sidebar">
+    <h2 class="admin-brand">SAAJ</h2>
+
+    <nav class="admin-nav">
+      <a href="admin-dashboard.html">Dashboard</a>
+      <a href="admin-products.html" class="active">Products</a>
+      <a href="admin-categories.html">Categories</a>
+      <a href="#" class="logout" onclick="logoutAdmin()">Logout</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="admin-main">
+
+    <!-- Header -->
+    <div class="admin-header">
+      <h1>Products</h1>
+      <button class="btn-primary" onclick="openProductModal()">Add Product</button>
+    </div>
+
+    <!-- Products Table -->
+    <div class="admin-table-wrapper">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <!-- products injected from database -->
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+ <!-- ADD / EDIT PRODUCT MODAL -->
+<div id="product-modal" class="admin-modal hidden">
+  <div class="modal-box">
+
+    <h3 id="modal-title">Add Product</h3>
+
+    <input type="text" id="product-name" placeholder="Product name" />
+    <input type="number" id="product-price" placeholder="Price (₹)" />
+
+    <!-- IMAGE OPTIONS -->
+    <input type="text" id="product-image-url" placeholder="Image URL (optional)" />
+
+    <div style="text-align:center; margin: 8px 0; font-size: 12px; color: #777;">
+      OR
+    </div>
+
+    <input type="file" id="product-image-file" accept="image/*" />
+
+    <select id="product-category">
+      <option value="">Select category</option>
+    </select>
+
+    <textarea id="product-description" placeholder="Product description"></textarea>
+
+    <label class="checkbox">
+      <input type="checkbox" id="product-active" checked />
+      Active
+    </label>
+
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="saveProduct()">Save</button>
+      <button class="btn-small" onclick="closeProductModal()">Cancel</button>
+    </div>
+
+  </div>
+</div>
+
+  <!-- SECURITY GUARD -->
+  <script type="module" src="js/admin-session-guard.js"></script>
+
+  <!-- LOGOUT -->
+  <script type="module">
+    import { supabase } from "./js/supabase.js";
+
+    window.logoutAdmin = async function () {
+      await supabase.auth.signOut();
+      window.location.href = "admin-login.html";
+    };
+  </script>
+
+  <!-- PRODUCTS LOGIC -->
+  <script type="module" src="js/admin-products.js"></script>
+
+</body>
+</html>

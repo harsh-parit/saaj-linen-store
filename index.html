@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAAJ — Men’s Linen</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container nav-content">
+        <a href="index.html" class="logo">SAAJ</a>
+      <nav class="nav-links">
+        <a href="products.html">Shop</a>
+        <a href="#">About</a>
+        <a href="login.html" id="auth-link">Login</a>
+        <a href="cart.html" class="cart-icon">
+          👜
+          <span id="cart-count" class="cart-badge"></span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero linen-bg">
+    <div class="container hero-content">
+      <h1>Pure Linen for Everyday Comfort</h1>
+      <p>Breathable. Natural. Timeless.</p>
+      <button class="btn-primary">Shop Men</button>
+    </div>
+  </section>
+
+  <!-- VALUE STRIP -->
+  <section class="values">
+    <div class="container values-grid">
+      <div class="value-item">🌿 Breathable Fabric</div>
+      <div class="value-item">🧵 Natural Fibers</div>
+      <div class="value-item">🧼 Easy Care</div>
+    </div>
+  </section>
+
+  <!-- FEATURED PRODUCTS -->
+  <section class="featured">
+    <div class="container">
+      <h2>Men’s Linen Essentials</h2>
+
+      <div id="featured-products" class="product-grid"></div>
+    </div>
+  </section>
+
+  <!-- NAVBAR SCRIPT -->
+  <script src="js/navbar.js"></script>
+
+
+  <!-- BRAND STORY -->
+  <section class="story linen-bg">
+    <div class="container story-content">
+      <p>
+        At SAAJ, we believe linen should feel honest — woven with care,
+        designed for comfort, and made to last beyond seasons.
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 SAAJ. Crafted in linen.</p>
+    </div>
+  </footer>
+
+  <script src="js/products.js"></script>
+<script src="js/home-products.js"></script>
+<script src="js/navbar.js"></script>
+<script src="js/cart-badge.js"></script>
+<script type="module" src="js/home-products.js"></script>
+</body>
+</html>

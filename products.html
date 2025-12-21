@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Men’s Linen — SAAJ</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container nav-content">
+        <a href="index.html" class="logo">SAAJ</a>
+      <nav class="nav-links">
+        <a href="products.html">Shop</a>
+        <a href="#">About</a>
+        <a href="login.html" id="auth-link">Login</a>
+        <a href="cart.html" class="cart-icon">
+          👜
+          <span id="cart-count" class="cart-badge"></span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PAGE HEADER -->
+  <section class="products-header">
+    <div class="container">
+      <h1>Men’s Linen Collection</h1>
+      <p>Crafted for comfort. Designed to breathe.</p>
+    </div>
+  </section>
+
+  <!-- PRODUCTS GRID -->
+  <section class="products-section">
+    <div class="container">
+      <div id="products-grid" class="product-grid"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 SAAJ. Crafted in linen.</p>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script src="js/navbar.js"></script>
+  <script type="module" src="js/products.js"></script>
+  <script src="js/cart-badge.js"></script>
+</body>
+</html>

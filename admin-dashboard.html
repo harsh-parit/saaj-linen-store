@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — SAAJ</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="admin-sidebar">
+    <h2 class="admin-brand">SAAJ</h2>
+
+    <nav class="admin-nav">
+      <a href="admin-dashboard.html" class="active">Dashboard</a>
+      <a href="admin-products.html">Products</a>
+      <a href="admin-categories.html">Categories</a>
+      <a href="#" class="logout" onclick="logoutAdmin()">Logout</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="admin-main">
+    <h1>Dashboard</h1>
+    <div class="admin-cards">
+  <div class="admin-card">
+    <h3>Total Products</h3>
+    <p id="total-products">—</p>
+  </div>
+
+  <div class="admin-card">
+    <h3>Total Categories</h3>
+    <p id="total-categories">—</p>
+  </div>
+
+  <div class="admin-card">
+    <h3>Orders</h3>
+    <p id="total-orders">—</p>
+  </div>
+</div>
+
+  </main>
+  <script src="js/admin-guard.js"></script>
+  <script type="module" src="js/admin-session-guard.js"></script>
+  <script type="module">
+  import { supabase } from "./js/supabase.js";
+
+  window.logoutAdmin = async function () {
+    await supabase.auth.signOut();
+    window.location.href = "admin-login.html";
+  };
+</script>
+<script type="module" src="js/admin-dashboard.js"></script>
+</body>
+</html>
