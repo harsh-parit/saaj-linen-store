@@ -110,7 +110,7 @@ The following flowchart illustrates how user interactions trigger logic that upd
 ![Home Page](screenshots/home.jpeg)
 
 ### 🛍️ Products Page
-![Products Page](screenshots/products.jpeg)
+![Products Page](screenshots/Products.jpeg)
 
 ### 📄 Product Detail Page
 ![Product Detail Page](screenshots/PDP-Product-Detail-Page.jpeg)
@@ -119,7 +119,7 @@ The following flowchart illustrates how user interactions trigger logic that upd
 ![Cart Page](screenshots/Cart.jpeg)
 
 ### 💳 Checkout Page
-![Checkout Page](screenshots/Checkout Page.jpeg)
+![Checkout Page](screenshots/Checkout.jpeg)
 
 ### 🔐 Login Page
 ![Login Page](screenshots/login.jpeg)
