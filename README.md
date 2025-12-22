@@ -84,12 +84,51 @@ https://saaj-store.vercel.app/
 ## 🧱 Project Architecture
 
 graph TD
-    A[User] --> B[Browser / HTML]
-    B --> C[JS Modules]
-    C --> D{LocalStorage}
-    D -->|Auth/Cart State| C
-    C --> E[DOM Rendering]
-    E --> Bsubgraph "Logic Layer" C1[login.js] --- C2[signup.js] C3[cart.js] --- C4[checkout.js] end
+    %% User Entry
+    User((User)) -->|Interacts with| UI[Presentation Layer: HTML/CSS]
+
+    %% UI to Logic
+    subgraph UI_Layer [Frontend Pages]
+        index[index.html]
+        prod_list[products.html]
+        pdp[product.html]
+        cart_pg[cart.html]
+        chk_out[checkout.html]
+        auth_pg[login/signup.html]
+    end
+
+    UI_Layer -->|Triggers| Logic[Logic Layer: JS Modules]
+
+    %% Logic to Storage
+    subgraph JS_Modules [JS Controllers]
+        direction TB
+        auth_js[login.js / signup.js]
+        cart_js[cart.js / cart-badge.js]
+        prod_js[products.js / pdp.js]
+        nav_js[navbar.js]
+    end
+
+    Logic -->|Read/Write| Storage[(LocalStorage State)]
+
+    %% Storage breakdown
+    subgraph State [Browser Data]
+        user_data[user: Object]
+        auth_stat[isLoggedIn: Boolean]
+        cart_data[cart: Array]
+    end
+
+    Storage --- State
+
+    %% State back to UI
+    State -->|Reactive Updates| nav_js
+    nav_js -->|Update UI| index
+    cart_data -->|Render Badge/List| cart_js
+    cart_js -->|DOM Manipulation| cart_pg
+    
+    %% Specific Flows
+    auth_js -->|Success| auth_stat
+    auth_stat -.->|Guard| chk_out
+    prod_js -->|Add Item| cart_data
 
 /css
   ├─ style.css        (Storefront styles)
