@@ -88,31 +88,19 @@ SAAJ follows a **Modular Client-Side Architecture**. Since it operates without a
 ### 🔁 Application Flow
 The following flowchart illustrates how user interactions trigger logic that updates the global state and reflects back on the UI.
 
-
-
-```mermaid
-graph TD
-    %% User Flow
-    User((User)) -->|Interacts| UI[Presentation Layer: HTML/CSS]
-    
-    subgraph Browser_Runtime [Browser Runtime]
-        UI -->|Events| JS[Logic Layer: JS Modules]
-        JS -->|CRUD Ops| LS[(LocalStorage: State)]
-        LS -->|Data Sync| JS
-        JS -->|DOM Updates| UI
-    end
-
-    %% State Logic
-    subgraph State_Management [Data Persistence]
-        LS --- CartItems["'cart': [ ]"]
-        LS --- UserAuth["'isLoggedIn': bool"]
-        LS --- UserProfile["'user': { }"]
-    end
-
-    %% Flow Examples
-    UI -.->|Add to Cart| JS
-    JS -.->|Set Item| LS
-    LS -.->|Update Badge| UI
+```text
+[ USER INTERACTION ]
+       │
+       ▼
+[ PRESENTATION LAYER ] ────► (index.html, product.html, etc.)
+       │
+       ▼
+[ LOGIC LAYER (JS) ]   ────► (cart.js, auth.js, navbar.js)
+       │
+       ▼
+[ STATE MANAGEMENT ]   ────► (LocalStorage: 'cart', 'user')
+       │
+       └─► [ DOM UPDATES ] ──► (Dynamic UI Refresh)
 
 ---
 
