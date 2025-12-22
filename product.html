@@ -5,69 +5,106 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Product — SAAJ</title>
 
-  <!-- Fonts -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
-<div class="page-wrapper">
-  <!-- NAVBAR -->
-  <header class="navbar">
-    <div class="container nav-content">
+  <div class="page-wrapper">
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+      <div class="container nav-content">
         <a href="index.html" class="logo">SAAJ</a>
-      <nav class="nav-links">
-        <a href="products.html">Shop</a>
-        <a href="#">About</a>
-        <a href="login.html" id="auth-link">Login</a>
-        <a href="cart.html" class="cart-icon">
-          👜
-          <span id="cart-count" class="cart-badge"></span>
-        </a>
-      </nav>
-    </div>
-  </header>
 
-  <!-- PRODUCT DETAIL -->
-  <section class="product-detail">
-    <div class="container product-detail-grid" id="product-detail">
-      <section class="product-detail">
-  <div class="container product-detail-grid">
+        <nav class="nav-links">
+          <a href="products.html">Shop</a>
+          <a href="#">About</a>
+          <a href="login.html" id="auth-link">Login</a>
+          <a href="cart.html" class="cart-icon">
+            👜
+            <span id="cart-count" class="cart-badge"></span>
+          </a>
+        </nav>
+      </div>
+    </header>
 
-    <div class="product-image">
-      <img id="product-image" src="" alt="Product" />
-    </div>
+    <!-- PRODUCT DETAIL -->
+    <section class="product-detail">
+      <div class="container product-detail-grid">
 
-    <div class="product-info">
-      <h1 id="product-name"></h1>
-      <p id="product-price"></p>
-      <p id="product-description"></p>
+        <!-- PRODUCT IMAGE -->
+        <div class="product-image">
+          <img id="product-image" src="" alt="Product image" />
+        </div>
 
-      <button id="add-to-cart" class="btn-primary">
-        Add to Cart
-      </button>
-    </div>
+        <!-- PRODUCT INFO -->
+        <div class="product-info">
+          <h1 id="product-name"></h1>
+
+          <p id="product-price"></p>
+
+          <!-- SIZE SELECT -->
+          <div class="product-option">
+            <label for="size-select">Size</label>
+            <select id="size-select">
+              <option value="">Select Size</option>
+              <option value="S">Small (S)</option>
+              <option value="M">Medium (M)</option>
+              <option value="L">Large (L)</option>
+              <option value="XL">Extra Large (XL)</option>
+            </select>
+          </div>
+
+          <!-- DESCRIPTION -->
+          <div class="product-section">
+            <h4>Description</h4>
+            <p id="product-description">
+              Crafted from premium linen for breathable, everyday comfort.
+            </p>
+          </div>
+
+          <!-- DETAILS -->
+          <div class="product-section">
+            <h4>Details</h4>
+            <ul class="product-details">
+              <li>100% Pure Linen</li>
+              <li>Regular fit</li>
+              <li>Breathable & lightweight</li>
+              <li>Machine wash cold</li>
+            </ul>
+          </div>
+
+          <!-- ADD TO CART -->
+          <button id="add-to-cart" class="btn-primary">
+            Add to Cart
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="container">
+        <p>© 2025 SAAJ. Crafted in linen.</p>
+      </div>
+    </footer>
 
   </div>
-</section>
 
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <p>© 2025 SAAJ. Crafted in linen.</p>
-    </div>
-  </footer>
-
-  <!-- JS (ORDER MATTERS) -->
-   <script type="module" src="js/product.js"></script>
+  <!-- JS -->
+  <script type="module" src="js/product.js"></script>
   <script src="js/navbar.js"></script>
   <script src="js/cart-badge.js"></script>
-  </div>
+
 </body>
 </html>
