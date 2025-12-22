@@ -82,12 +82,19 @@ https://saaj-store.vercel.app/
 ---
 
 ## 🧱 Project Architecture
+
+graph TD
+    A[User] --> B[Browser / HTML]
+    B --> C[JS Modules]
+    C --> D{LocalStorage}
+    D -->|Auth/Cart State| C
+    C --> E[DOM Rendering]
+    E --> Bsubgraph "Logic Layer" C1[login.js] --- C2[signup.js] C3[cart.js] --- C4[checkout.js] end
+
 /css
   ├─ style.css        (Storefront styles)
   ├─ login.css        (Login page – isolated)
   └─ signup.css       (Signup page – isolated)
-
----
 
 /js
   ├─ products.js
@@ -97,8 +104,6 @@ https://saaj-store.vercel.app/
   ├─ navbar.js
   ├─ login.js
   └─ signup.js
-
----
 
 /pages
   ├─ index.html
