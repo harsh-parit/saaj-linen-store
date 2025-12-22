@@ -368,13 +368,30 @@ form {
   margin: auto;
 }
 
-/* =====================================================
-   FOOTER
-===================================================== */
+/* ===============================
+   PREMIUM FOOTER
+================================ */
+
 .footer {
-  padding: var(--space-md) 0;
+  padding: 48px 0 32px;
   text-align: center;
+}
+
+.footer-content {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.footer-story {
+  font-size: 14px;
   color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.footer-copy {
+  font-size: 13px;
+  color: #9a9a9a;
 }
 
 /* =====================================================
