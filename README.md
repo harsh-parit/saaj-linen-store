@@ -87,6 +87,8 @@ https://saaj-store.vercel.app/
   ├─ login.css        (Login page – isolated)
   └─ signup.css       (Signup page – isolated)
 
+---
+
 /js
   ├─ products.js
   ├─ product.js
@@ -95,6 +97,8 @@ https://saaj-store.vercel.app/
   ├─ navbar.js
   ├─ login.js
   └─ signup.js
+
+---
 
 /pages
   ├─ index.html
