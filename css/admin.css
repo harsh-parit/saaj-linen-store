@@ -1,49 +1,329 @@
-
 /* =====================================================
-   ADMIN LAYOUT PROTECTION (ISOLATION FIX)
+   ADMIN DESIGN TOKENS
 ===================================================== */
 
-/* Prevent storefront mobile rules from breaking admin */
-.admin-layout,
-.admin-login-body {
-  all: initial;
-  font-family: var(--font-body);
+:root {
+  --admin-bg: #f6f6f4;
+  --admin-surface: #ffffff;
+  --admin-dark: #1f1f1f;
+  --admin-muted: #777;
+  --admin-accent: #7a8f6a;
+
+  --radius-md: 12px;
+  --radius-lg: 18px;
 }
 
-/* Re-apply base styles for admin only */
-.admin-layout *,
-.admin-login-body * {
-  box-sizing: border-box;
-  font-family: var(--font-body);
-}
-
-/* Restore admin background */
-.admin-layout {
-  display: flex;
-  min-height: 100vh;
-  background: #f6f6f4;
-}
+/* =====================================================
+   ADMIN LOGIN PAGE
+===================================================== */
 
 .admin-login-body {
-  background: #f6f6f4;
+  background: var(--admin-bg);
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: var(--font-body);
 }
 
-/* Disable storefront responsive rules for admin */
-@media (max-width: 900px),
-       (max-width: 768px),
-       (max-width: 600px) {
+.admin-login-box {
+  background: var(--admin-surface);
+  width: 100%;
+  max-width: 420px;
+  padding: 40px;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+}
 
-  .admin-layout .product-grid,
-  .admin-layout .products-grid,
-  .admin-layout .cart-grid {
-    all: unset;
-  }
+.admin-logo {
+  font-family: var(--font-heading);
+  text-align: center;
+  margin-bottom: 6px;
+}
 
+.admin-subtitle {
+  text-align: center;
+  color: var(--admin-muted);
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+
+.admin-login-box label {
+  font-size: 13px;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.admin-login-box input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.admin-login-box input:focus {
+  outline: none;
+  border-color: var(--admin-accent);
+}
+
+.admin-login-box button {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: var(--admin-accent);
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.admin-note {
+  margin-top: 16px;
+  font-size: 12px;
+  text-align: center;
+  color: var(--admin-muted);
+}
+
+/* =====================================================
+   ADMIN DASHBOARD LAYOUT
+===================================================== */
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--admin-bg);
+  font-family: var(--font-body);
+}
+
+/* Sidebar */
+.admin-sidebar {
+  width: 240px;
+  background: var(--admin-dark);
+  color: #fff;
+  padding: 28px 22px;
+  box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+}
+
+.admin-brand {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  margin-bottom: 32px;
+}
+
+.admin-nav a {
+  display: block;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #ccc;
+  text-decoration: none;
+}
+
+.admin-nav a.active {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+.admin-nav a:hover {
+  color: #fff;
+}
+
+/* Main */
+.admin-main {
+  flex: 1;
+  padding: 40px;
+}
+
+.admin-main h1 {
+  margin-bottom: 24px;
+}
+
+/* ===============================
+   ADMIN TOP HEADER
+================================ */
+
+.admin-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.admin-topbar h1 {
+  margin: 0;
+}
+
+.admin-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.admin-user {
+  font-size: 14px;
+  color: #555;
+}
+
+.admin-logout {
+  padding: 8px 14px;
+  font-size: 13px;
+  border-radius: 8px;
+  border: none;
+  background: #f3e6e6;
+  color: #8a4f4f;
+  cursor: pointer;
+}
+
+.admin-logout:hover {
+  background: #ead2d2;
+}
+
+/* =====================================================
+   DASHBOARD CARDS
+===================================================== */
+
+.admin-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.admin-card {
+  background: var(--admin-surface);
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+}
+
+.admin-card h3 {
+  font-size: 13px;
+  color: var(--admin-muted);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.admin-card p {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+/* =====================================================
+   ADMIN TABLES
+===================================================== */
+
+.admin-table-wrapper {
+  background: var(--admin-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 16px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.admin-table thead {
+  background: #f3f3f1;
+}
+
+.admin-table tbody tr {
+  border-bottom: 1px solid #eee;
+}
+
+/* =====================================================
+   STATUS + BUTTONS
+===================================================== */
+
+.status {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.status.active {
+  background: #e6f2ec;
+  color: #2f7d5c;
+}
+
+.status.inactive {
+  background: #f3e6e6;
+  color: #8a4f4f;
+}
+
+.btn-small {
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  border: 1px solid #ddd;
+  background: transparent;
+  cursor: pointer;
+}
+
+.btn-small.danger {
+  border-color: #c9a3a3;
+  color: #8a4f4f;
+}
+
+/* =====================================================
+   ADMIN MODAL (CRUD)
+===================================================== */
+
+.admin-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.admin-modal.hidden {
+  display: none;
+}
+
+.modal-box {
+  background: #fff;
+  width: 100%;
+  max-width: 520px;
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+.modal-box input,
+.modal-box select,
+.modal-box textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* =====================================================
+   ADMIN IS DESKTOP-ONLY (LOCK)
+===================================================== */
+
+@media (max-width: 900px) {
   .admin-layout {
-    flex-direction: row;
+    min-width: 1200px;
   }
 }
