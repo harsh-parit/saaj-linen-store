@@ -271,3 +271,52 @@ form {
     flex-direction: column;
   }
 }
+
+/* =====================================================
+   ADMIN LAYOUT PROTECTION (ISOLATION FIX)
+===================================================== */
+
+/* Prevent storefront mobile rules from breaking admin */
+.admin-layout,
+.admin-login-body {
+  all: initial;
+  font-family: var(--font-body);
+}
+
+/* Re-apply base styles for admin only */
+.admin-layout *,
+.admin-login-body * {
+  box-sizing: border-box;
+  font-family: var(--font-body);
+}
+
+/* Restore admin background */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f6f6f4;
+}
+
+.admin-login-body {
+  background: #f6f6f4;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Disable storefront responsive rules for admin */
+@media (max-width: 900px),
+       (max-width: 768px),
+       (max-width: 600px) {
+
+  .admin-layout .product-grid,
+  .admin-layout .products-grid,
+  .admin-layout .cart-grid {
+    all: unset;
+  }
+
+  .admin-layout {
+    flex-direction: row;
+  }
+}
