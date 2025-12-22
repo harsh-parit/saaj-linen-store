@@ -524,3 +524,27 @@ form {
     padding: 28px;
   }
 }
+
+/* ===============================
+   GLOBAL STICKY FOOTER FIX
+================================ */
+
+html,
+body {
+  height: 100%;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-content {
+  flex: 1; /* pushes footer to bottom */
+}
+
+/* Footer stays natural */
+.footer {
+  margin-top: auto;
+}
