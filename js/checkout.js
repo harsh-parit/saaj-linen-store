@@ -1,24 +1,35 @@
+/* =====================================================
+   LOGIN GUARD (REDIRECT AFTER LOGIN)
+===================================================== */
 const isLoggedIn = localStorage.getItem("isLoggedIn");
-const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 if (!isLoggedIn) {
+  // Save intended page
+  localStorage.setItem("redirectAfterLogin", window.location.pathname);
   window.location.href = "login.html";
 }
+
+/* =====================================================
+   LOAD CART & ELEMENTS
+===================================================== */
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 const totalEl = document.getElementById("checkout-total");
 const itemsEl = document.getElementById("checkout-items");
 const placeOrderBtn = document.getElementById("place-order");
 
+/* =====================================================
+   RENDER ORDER SUMMARY
+===================================================== */
 let total = 0;
 itemsEl.innerHTML = "";
 
-cart.forEach(item => {
+cart.forEach((item) => {
   const itemTotal = item.price * item.quantity;
   total += itemTotal;
 
   const row = document.createElement("div");
   row.className = "summary-item";
-
   row.innerHTML = `
     <span>${item.name} × ${item.quantity}</span>
     <span>₹${itemTotal}</span>
@@ -29,6 +40,9 @@ cart.forEach(item => {
 
 totalEl.textContent = total;
 
+/* =====================================================
+   PLACE ORDER
+===================================================== */
 placeOrderBtn.addEventListener("click", () => {
   const name = document.getElementById("name").value.trim();
   const address = document.getElementById("address").value.trim();
@@ -44,6 +58,9 @@ placeOrderBtn.addEventListener("click", () => {
     return;
   }
 
+  // Clear cart after successful order
   localStorage.removeItem("cart");
+
+  // Redirect to success page
   window.location.href = "success.html";
 });

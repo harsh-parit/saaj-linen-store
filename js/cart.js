@@ -1,3 +1,17 @@
+/* =====================================================
+   LOGIN GUARD (REDIRECT AFTER LOGIN)
+===================================================== */
+const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+if (!isLoggedIn) {
+  // Save intended page
+  localStorage.setItem("redirectAfterLogin", window.location.pathname);
+  window.location.href = "login.html";
+}
+
+/* =====================================================
+   CART LOGIC
+===================================================== */
 const summaryItemsEl = document.getElementById("cart-summary-items");
 const cartItemsContainer = document.getElementById("cart-items");
 const subtotalEl = document.getElementById("subtotal");
@@ -19,19 +33,18 @@ function renderCart() {
   cart.forEach((item, index) => {
     subtotal += item.price * item.quantity;
 
+    /* Summary item */
     const summaryRow = document.createElement("div");
-summaryRow.className = "summary-item";
+    summaryRow.className = "summary-item";
+    summaryRow.innerHTML = `
+      <span>${item.name} × ${item.quantity}</span>
+      <span>₹${item.price * item.quantity}</span>
+    `;
+    summaryItemsEl.appendChild(summaryRow);
 
-summaryRow.innerHTML = `
-  <span>${item.name} × ${item.quantity}</span>
-  <span>₹${item.price * item.quantity}</span>
-`;
-
-summaryItemsEl.appendChild(summaryRow);
-
+    /* Cart item */
     const div = document.createElement("div");
     div.className = "cart-item";
-
     div.innerHTML = `
       <div>
         <strong>${item.name}</strong><br/>
@@ -44,7 +57,6 @@ summaryItemsEl.appendChild(summaryRow);
         <button data-index="${index}" class="remove">✕</button>
       </div>
     `;
-
     cartItemsContainer.appendChild(div);
   });
 
@@ -52,6 +64,9 @@ summaryItemsEl.appendChild(summaryRow);
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
+/* =====================================================
+   CART ACTIONS
+===================================================== */
 cartItemsContainer.addEventListener("click", (e) => {
   const index = e.target.dataset.index;
   if (index === undefined) return;
