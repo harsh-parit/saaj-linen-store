@@ -81,78 +81,38 @@ https://saaj-store.vercel.app/
 
 ---
 
-## 🧱 Project Architecture
+## 🏗️ Project Architecture
 
+SAAJ follows a **Modular Client-Side Architecture**. Since it operates without a backend, the logic is decoupled into a presentation layer, a JS controller layer, and a persistent LocalStorage state.
+
+### 🔁 Application Flow
+The following flowchart illustrates how user interactions trigger logic that updates the global state and reflects back on the UI.
+
+
+
+```mermaid
 graph TD
-    %% User Entry
-    User((User)) -->|Interacts with| UI[Presentation Layer: HTML/CSS]
-
-    %% UI to Logic
-    subgraph UI_Layer [Frontend Pages]
-        index[index.html]
-        prod_list[products.html]
-        pdp[product.html]
-        cart_pg[cart.html]
-        chk_out[checkout.html]
-        auth_pg[login/signup.html]
-    end
-
-    UI_Layer -->|Triggers| Logic[Logic Layer: JS Modules]
-
-    %% Logic to Storage
-    subgraph JS_Modules [JS Controllers]
-        direction TB
-        auth_js[login.js / signup.js]
-        cart_js[cart.js / cart-badge.js]
-        prod_js[products.js / pdp.js]
-        nav_js[navbar.js]
-    end
-
-    Logic -->|Read/Write| Storage[(LocalStorage State)]
-
-    %% Storage breakdown
-    subgraph State [Browser Data]
-        user_data[user: Object]
-        auth_stat[isLoggedIn: Boolean]
-        cart_data[cart: Array]
-    end
-
-    Storage --- State
-
-    %% State back to UI
-    State -->|Reactive Updates| nav_js
-    nav_js -->|Update UI| index
-    cart_data -->|Render Badge/List| cart_js
-    cart_js -->|DOM Manipulation| cart_pg
+    %% User Flow
+    User((User)) -->|Interacts| UI[Presentation Layer: HTML/CSS]
     
-    %% Specific Flows
-    auth_js -->|Success| auth_stat
-    auth_stat -.->|Guard| chk_out
-    prod_js -->|Add Item| cart_data
+    subgraph Browser_Runtime [Browser Runtime]
+        UI -->|Events| JS[Logic Layer: JS Modules]
+        JS -->|CRUD Ops| LS[(LocalStorage: State)]
+        LS -->|Data Sync| JS
+        JS -->|DOM Updates| UI
+    end
 
-/css
-  ├─ style.css        (Storefront styles)
-  ├─ login.css        (Login page – isolated)
-  └─ signup.css       (Signup page – isolated)
+    %% State Logic
+    subgraph State_Management [Data Persistence]
+        LS --- CartItems["'cart': [ ]"]
+        LS --- UserAuth["'isLoggedIn': bool"]
+        LS --- UserProfile["'user': { }"]
+    end
 
-/js
-  ├─ products.js
-  ├─ product.js
-  ├─ cart.js
-  ├─ checkout.js
-  ├─ navbar.js
-  ├─ login.js
-  └─ signup.js
-
-/pages
-  ├─ index.html
-  ├─ products.html
-  ├─ product.html
-  ├─ cart.html
-  ├─ checkout.html
-  ├─ login.html
-  ├─ signup.html
-  └─ success.html
+    %% Flow Examples
+    UI -.->|Add to Cart| JS
+    JS -.->|Set Item| LS
+    LS -.->|Update Badge| UI
 
 ---
 
