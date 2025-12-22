@@ -101,7 +101,7 @@ The following flowchart illustrates how user interactions trigger logic that upd
 [ STATE MANAGEMENT ]   ────► (LocalStorage: 'cart', 'user')
        │
        └─► [ DOM UPDATES ] ──► (Dynamic UI Refresh)
-
+```
 ---
 
 ## 🖼️ Screenshots
