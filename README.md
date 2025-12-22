@@ -143,7 +143,7 @@ The following flowchart illustrates how user interactions trigger logic that upd
 cd project-folder
 python -m http.server 5500
 http://localhost:5500  
-
+```
 ---
 
 👤 Author
