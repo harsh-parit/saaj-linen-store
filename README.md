@@ -106,10 +106,6 @@ The following flowchart illustrates how user interactions trigger logic that upd
 
 ## 🖼️ Screenshots
 
-Screenshots of the application are available in the `/screenshots` folder:
-
-## 🖼️ Screenshots
-
 ### 🏠 Home Page
 ![Home Page](screenshots/home.jpeg)
 
