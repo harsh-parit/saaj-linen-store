@@ -1,29 +1,40 @@
-import { supabase } from "./supabase.js";
-
-const grid = document.getElementById("featured-products");
+const grid = document.getElementById(
+  "featured-products"
+);
 
 /* ===============================
    LOAD FEATURED PRODUCTS
 ================================ */
 async function loadFeaturedProducts() {
-  const { data: products, error } = await supabase
-    .from("products")
-    .select(`
-      id,
-      name,
-      price,
-      image_url
-    `)
-    .eq("is_active", true)
-    .order("created_at", { ascending: false })
-    .limit(4); // 👈 show only 4 on home
+  try {
+    const response = await fetch(
+      "./data/products.json"
+    );
 
-  if (error) {
-    console.error("Error loading featured products:", error);
-    return;
+    if (!response.ok) {
+      throw new Error(
+        "Failed to load featured products"
+      );
+    }
+
+    const products = await response.json();
+
+    // Active only + limit 4
+    const featuredProducts = products
+      .filter((p) => p.is_active)
+      .slice(0, 4);
+
+    renderFeaturedProducts(featuredProducts);
+
+  } catch (error) {
+    console.error(error);
+
+    grid.innerHTML = `
+      <p style="text-align:center;">
+        Failed to load featured products.
+      </p>
+    `;
   }
-
-  renderFeaturedProducts(products);
 }
 
 /* ===============================
@@ -34,27 +45,36 @@ function renderFeaturedProducts(products) {
 
   products.forEach((product) => {
     const card = document.createElement("div");
+
     card.className = "product-card";
 
     card.innerHTML = `
       <div class="product-img">
-        <img 
+        <img
           src="${product.image_url || "assets/images/placeholder.png"}"
           alt="${product.name}"
         >
       </div>
+
       <h3>${product.name}</h3>
+
       <p>₹${product.price}</p>
-      <button class="btn-primary add-to-cart">Add to Cart</button>
+
+      <button class="btn-primary add-to-cart">
+        Add to Cart
+      </button>
     `;
 
-    // Card click → PDP
+    // Open PDP
     card.addEventListener("click", () => {
-      window.location.href = `product.html?id=${product.id}`;
+      window.location.href =
+        `product.html?id=${product.id}`;
     });
 
-    // Add to cart (stop card click)
-    const button = card.querySelector(".add-to-cart");
+    // Add to cart
+    const button =
+      card.querySelector(".add-to-cart");
+
     button.addEventListener("click", (e) => {
       e.stopPropagation();
       addToCart(product);
@@ -65,12 +85,15 @@ function renderFeaturedProducts(products) {
 }
 
 /* ===============================
-   CART LOGIC (SAME AS OTHERS)
+   ADD TO CART
 ================================ */
 function addToCart(product) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let cart =
+    JSON.parse(localStorage.getItem("cart")) || [];
 
-  const existing = cart.find((item) => item.id === product.id);
+  const existing = cart.find(
+    (item) => item.id === product.id
+  );
 
   if (existing) {
     existing.quantity += 1;
@@ -84,7 +107,10 @@ function addToCart(product) {
     });
   }
 
-  localStorage.setItem("cart", JSON.stringify(cart));
+  localStorage.setItem(
+    "cart",
+    JSON.stringify(cart)
+  );
 }
 
 /* ===============================

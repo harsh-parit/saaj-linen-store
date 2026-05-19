@@ -1,5 +1,3 @@
-import { supabase } from "./supabase.js";
-
 const grid = document.getElementById("products-grid");
 
 if (!grid) {
@@ -7,27 +5,34 @@ if (!grid) {
 }
 
 /* ===============================
-   LOAD PRODUCTS FROM DB
+   LOAD PRODUCTS
 ================================ */
 async function loadProducts() {
-  const { data: products, error } = await supabase
-    .from("products")
-    .select(`
-      id,
-      name,
-      price,
-      image_url,
-      is_active
-    `)
-    .eq("is_active", true)
-    .order("created_at", { ascending: false });
+  try {
+    const response = await fetch("./data/products.json");
 
-  if (error) {
-    console.error("Supabase error:", error);
-    return;
+    if (!response.ok) {
+      throw new Error("Failed to load products");
+    }
+
+    const products = await response.json();
+
+    // Show only active products
+    const activeProducts = products.filter(
+      (p) => p.is_active
+    );
+
+    renderProducts(activeProducts);
+
+  } catch (error) {
+    console.error("Error loading products:", error);
+
+    grid.innerHTML = `
+      <p style="text-align:center;">
+        Failed to load products.
+      </p>
+    `;
   }
-
-  renderProducts(products);
 }
 
 /* ===============================
@@ -47,21 +52,29 @@ function renderProducts(products) {
 
     card.innerHTML = `
       <div class="product-img">
-        <img 
+        <img
           src="${product.image_url || "assets/images/placeholder.png"}"
           alt="${product.name}"
         />
       </div>
+
       <h3>${product.name}</h3>
+
       <p>₹${product.price}</p>
-      <button class="btn-primary add-to-cart">Add to Cart</button>
+
+      <button class="btn-primary add-to-cart">
+        Add to Cart
+      </button>
     `;
 
+    // Open PDP
     card.addEventListener("click", () => {
       window.location.href = `product.html?id=${product.id}`;
     });
 
+    // Add to cart
     const button = card.querySelector(".add-to-cart");
+
     button.addEventListener("click", (e) => {
       e.stopPropagation();
       addToCart(product);
@@ -72,12 +85,15 @@ function renderProducts(products) {
 }
 
 /* ===============================
-   CART LOGIC
+   ADD TO CART
 ================================ */
 function addToCart(product) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let cart =
+    JSON.parse(localStorage.getItem("cart")) || [];
 
-  const existing = cart.find((item) => item.id === product.id);
+  const existing = cart.find(
+    (item) => item.id === product.id
+  );
 
   if (existing) {
     existing.quantity += 1;
@@ -91,7 +107,10 @@ function addToCart(product) {
     });
   }
 
-  localStorage.setItem("cart", JSON.stringify(cart));
+  localStorage.setItem(
+    "cart",
+    JSON.stringify(cart)
+  );
 }
 
 /* ===============================

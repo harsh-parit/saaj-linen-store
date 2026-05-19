@@ -1,9 +1,10 @@
-import { supabase } from "./supabase.js";
-
 /* ===============================
-   GET PRODUCT ID FROM URL
+   GET PRODUCT ID
 ================================ */
-const params = new URLSearchParams(window.location.search);
+const params = new URLSearchParams(
+  window.location.search
+);
+
 const productId = params.get("id");
 
 if (!productId) {
@@ -11,60 +12,85 @@ if (!productId) {
 }
 
 /* ===============================
-   LOAD PRODUCT FROM SUPABASE
+   LOAD PRODUCT
 ================================ */
 async function loadProduct() {
-  const { data: product, error } = await supabase
-    .from("products")
-    .select(`
-      id,
-      name,
-      price,
-      image_url,
-      description,
-      is_active
-    `)
-    .eq("id", productId)
-    .eq("is_active", true)
-    .single();
+  try {
+    const response = await fetch("./data/products.json");
 
-  if (error || !product) {
+    if (!response.ok) {
+      throw new Error("Failed to load product");
+    }
+
+    const products = await response.json();
+
+    const product = products.find(
+      (p) =>
+        p.id == productId &&
+        p.is_active
+    );
+
+    if (!product) {
+      showNotFound();
+      return;
+    }
+
+    renderProduct(product);
+
+  } catch (error) {
     console.error(error);
     showNotFound();
-    return;
   }
-
-  renderProduct(product);
 }
 
 /* ===============================
    RENDER PRODUCT
 ================================ */
 function renderProduct(product) {
-  const imageEl = document.getElementById("product-image");
-  const nameEl = document.getElementById("product-name");
-  const priceEl = document.getElementById("product-price");
-  const descEl = document.getElementById("product-description");
-  const addBtn = document.getElementById("add-to-cart");
+  const imageEl =
+    document.getElementById("product-image");
 
-  imageEl.src = product.image_url || "assets/images/placeholder.png";
+  const nameEl =
+    document.getElementById("product-name");
+
+  const priceEl =
+    document.getElementById("product-price");
+
+  const descEl =
+    document.getElementById("product-description");
+
+  const addBtn =
+    document.getElementById("add-to-cart");
+
+  imageEl.src =
+    product.image_url ||
+    "assets/images/placeholder.png";
+
   imageEl.alt = product.name;
 
   nameEl.innerText = product.name;
-  priceEl.innerText = `₹${product.price}`;
-  descEl.innerText =
-    product.description || "Premium linen crafted for everyday comfort.";
 
-  addBtn.addEventListener("click", () => addToCart(product));
+  priceEl.innerText = `₹${product.price}`;
+
+  descEl.innerText =
+    product.description ||
+    "Premium linen crafted for everyday comfort.";
+
+  addBtn.addEventListener("click", () => {
+    addToCart(product);
+  });
 }
 
 /* ===============================
-   CART LOGIC
+   ADD TO CART
 ================================ */
 function addToCart(product) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let cart =
+    JSON.parse(localStorage.getItem("cart")) || [];
 
-  const existing = cart.find((item) => item.id === product.id);
+  const existing = cart.find(
+    (item) => item.id === product.id
+  );
 
   if (existing) {
     existing.quantity += 1;
@@ -78,18 +104,27 @@ function addToCart(product) {
     });
   }
 
-  localStorage.setItem("cart", JSON.stringify(cart));
+  localStorage.setItem(
+    "cart",
+    JSON.stringify(cart)
+  );
 }
 
 /* ===============================
-   ERROR STATE
+   PRODUCT NOT FOUND
 ================================ */
 function showNotFound() {
   document.querySelector(".product-detail").innerHTML = `
-    <div style="padding:80px;text-align:center">
+    <div style="padding:80px;text-align:center;">
       <h2>Product not found</h2>
-      <p>This product may be unavailable.</p>
-      <a href="products.html" class="btn-primary">Back to Shop</a>
+
+      <p>
+        This product may be unavailable.
+      </p>
+
+      <a href="products.html" class="btn-primary">
+        Back to Shop
+      </a>
     </div>
   `;
 }
