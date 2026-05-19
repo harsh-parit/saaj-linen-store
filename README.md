@@ -139,7 +139,9 @@ The following flowchart illustrates how user interactions trigger logic that upd
 3. Click **Open with Live Server**
 
 ### Option 2: Using Python
+clone the project
 ```bash
+git clone <repo url>
 cd project-folder
 python -m http.server 5500
 http://localhost:5500  
