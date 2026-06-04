@@ -1,4 +1,9 @@
 (function () {
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
-  const isAdmin = localStorage.getItem("isAdmin");
+  const isAdmin =
+    localStorage.getItem("isAdmin");
+
+  if (isAdmin !== "true") {
+    window.location.href =
+      "admin-login.html";
+  }
 })();
