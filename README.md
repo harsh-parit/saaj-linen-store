@@ -10,7 +10,7 @@ It is built using **vanilla HTML, CSS, and JavaScript** — no frameworks — to
 ## 🚀 Live Demo
 
 👉 **Live Website:**  
-https://saaj-store.vercel.app/
+unavailable due to vercel compromise
 
 *(Hosted on Vercel — fast, stable, and free)*
 
